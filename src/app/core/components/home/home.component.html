@@ -1,3 +1,41 @@
-<div fxLayout="column" fxLayoutAlign="start center">
-    <div class="main-container"></div>
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <div class="main-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <!-- Header line 1 -->
+        <div fxLayout="row" fxLayoutAlign="start center" class="base-text">
+            <span> {{converterForm.get('fromValue').value}} </span>&nbsp; <span>{{selectedFromCurrency}}</span>&nbsp;
+            <span> Equals </span>
+        </div>
+
+        <!-- Header line 2 -->
+        <div fxLayout="row" fxLayoutAlign="start center" class="target-text">
+            <span>{{converterForm.get('baseValue').value}} </span> &nbsp; <span>{{selectedBaseCurrency}}</span>
+        </div>
+
+        <!-- Converter form -->
+        <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" [formGroup]="converterForm">
+            <span>From: </span>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <input type="number" class="input-box" formControlName="fromValue">
+                <select class="select-box" formControlName="fromCurrency" (change)="onCurrencyChange()">
+                    <option *ngFor="let currency of currencyList" [value]="currency.id">{{currency.displayName}}
+                    </option>
+                </select>
+            </div>
+
+            <span>To: </span>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <input type="number" class="input-box" formControlName="baseValue">
+                <select class="select-box" formControlName="baseCurrency" (change)="onCurrencyChange()">
+                    <option *ngFor="let currency of currencyList" [value]="currency.id">{{currency.displayName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="main-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <app-line-chart *ngIf="chartDataArray.length" [chartData]="chartDataArray"></app-line-chart>
+    </div>
 </div>
